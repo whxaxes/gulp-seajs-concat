@@ -2,6 +2,8 @@
 
 demo:<br/>
 
+used [gulp-seajs-transport](https://github.com/guilipan/gulp-seajs-transport)<br />
+
     gulp.task('default' , function(){
         gulp.src('javascripts/**/*')
             .pipe(transport())
