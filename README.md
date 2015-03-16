@@ -2,7 +2,7 @@
 
 demo:<br/>
 
-        var gulp = require("gulp");
+         var gulp = require("gulp");
         var transport = require("gulp-seajs-transport");
         var uglify = require("gulp-uglify");
         var concat = require("gulp-seajs-concat");
