@@ -49,7 +49,6 @@ module.exports = function(reg){
             }
         }
         cb();
-        depenceMaps = {};
     };
 
     return through.obj(_transform , _flush);
