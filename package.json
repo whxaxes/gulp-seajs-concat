@@ -1,0 +1,27 @@
+{
+  "name": "gulp-seajs-concat",
+  "version": "0.0.1",
+  "description": "seajs concat",
+  "main": "index.js",
+  "dependencies": {
+    "through2": "^0.6.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/whxaxes/gulp-seajs-concat"
+  },
+  "keywords": [
+    "seajs",
+    "concat"
+  ],
+  "author": "wanghx",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/whxaxes/gulp-seajs-concat/issues"
+  },
+  "homepage": "https://github.com/whxaxes/gulp-seajs-concat"
+}
