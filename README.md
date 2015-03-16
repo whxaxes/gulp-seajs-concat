@@ -2,8 +2,6 @@
 
 demo:<br/>
 
-used [gulp-seajs-transport](https://github.com/guilipan/gulp-seajs-transport)<br />
-        
         var gulp = require("gulp");
         var transport = require("gulp-seajs-transport");
         var uglify = require("gulp-uglify");
