@@ -1,4 +1,5 @@
 var through = require("through2");
+var url = require('url');
 
 module.exports = function(reg){
     var denps = {};
