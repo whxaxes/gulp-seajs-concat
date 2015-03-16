@@ -48,7 +48,6 @@ module.exports = function(reg){
                 });
             }
         }
-        console.log("finished concat after "+ ((new Date()) - time) + "ms");
         cb();
         depenceMaps = {};
     };
