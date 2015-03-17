@@ -1,5 +1,7 @@
 #gulp-seajs-concat
 
+(因为没发现相关组件，所以自己写来凑合着用的)
+
 demo:<br/>
 
          var gulp = require("gulp");
