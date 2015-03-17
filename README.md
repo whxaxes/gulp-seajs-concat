@@ -15,7 +15,7 @@ demo:<br/>
         var concat = require("gulp-seajs-concat");
         
         gulp.task('default' , function(){
-            gulp.src('javascripts/**/*')
+            return gulp.src('javascripts/**/*')
                 .pipe(transport())
                 .pipe(concat(/\/app\//g))
                 .pipe(uglify())
