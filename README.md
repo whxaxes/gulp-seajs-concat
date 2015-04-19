@@ -1,6 +1,6 @@
 #gulp-seajs-concat
 
-自用插件，用于合并seajs模块
+自用插件，用于合并编译过的seajs模块
 
 ##Install 
 
