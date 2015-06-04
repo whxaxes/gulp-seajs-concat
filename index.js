@@ -33,10 +33,12 @@ module.exports = function(reg){
             contents.length = pathArr.length = size = 0;
             each(f);
             f.contents = Buffer.concat(contents , size);
-            this.push(f)
+            this.push(f);
         }
 
         function each(file){
+            if (!file)return;
+
             if(pathArr.indexOf(file.path)==-1){
                 pathArr.push(file.path)
                 contents.push(file.caculateContents);
