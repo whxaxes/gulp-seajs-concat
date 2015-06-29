@@ -14,7 +14,7 @@ module.exports = function (reg) {
         file.contents.copy(denps[filepath].caculateContents)
 
         var fileString = file.contents.toString();
-        if (/define\(.*(\[.*?\])/.test(fileString)) {
+        if (/(\[.*?\])/.test(fileString)) {
             var arr = RegExp.$1.match(/".*?"/g) || [];
 
             for (var i = 0; i < arr.length; i++) {
