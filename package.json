@@ -1,6 +1,6 @@
 {
   "name": "gulp-seajs-concat",
-  "version": "0.0.8",
+  "version": "1.0.0",
   "description": "seajs concat",
   "main": "index.js",
   "dependencies": {
