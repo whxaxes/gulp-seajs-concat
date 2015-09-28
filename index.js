@@ -12,7 +12,7 @@ module.exports = function(options) {
   var base = options.base || "";
 
   // 兼容旧版本
-  if(type === "[Object RegExp]"){
+  if(type === "[object RegExp]"){
     filter = options;
   }
 
