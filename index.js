@@ -96,11 +96,11 @@ module.exports = function(options) {
         if(file.caculateContents){
           cont = file.caculateContents
         }else {
-          if(fs.existsSync(file.path) && fs.lstatSync(filepath).isFile()){
-            cont = fs.readFileSync(file.path);
-          }else {
+          //if(fs.existsSync(file.path) && fs.lstatSync(filepath).isFile()){
+          //  cont = fs.readFileSync(file.path);
+          //}else {
             return;
-          }
+          //}
         }
 
         contents.push(cont);
