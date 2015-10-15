@@ -1,20 +1,13 @@
 var through = require("through2");
+var fs = require('fs');
 var url = require('url');
 var path = require("path");
 
 module.exports = function(options) {
   var denps = {};
-
-  var type = Object.prototype.toString.call(options);
-
   var alias = options.alias || {};
   var filter = options.filter;
   var base = options.base || "";
-
-  // 兼容旧版本
-  if(type === "[object RegExp]"){
-    filter = options;
-  }
 
   /**
    * 收集js文件信息
@@ -34,6 +27,8 @@ module.exports = function(options) {
     file.children = [];
 
     var fileString = file.contents.toString();
+
+    // 符合transport后seajs格式的js文件才进行依赖检测
     if (/(\[.*?\])/.test(fileString)) {
       var arr = RegExp.$1.match(/".*?"/g) || [];
 
@@ -73,29 +68,50 @@ module.exports = function(options) {
       file = null,
       size = 0;
 
+    var cont;
+
+    // 遍历需要合并的文件并且合并
     for (var filepath in denps) {
       if (filter && (filter instanceof RegExp) && !filepath.match(filter)) continue;
 
       contents.length = pathArr.length = size = 0;
 
-      each(file = denps[filepath]);
+      combine(file = denps[filepath]);
 
       file.contents = Buffer.concat(contents, size);
+
       this.push(file);
     }
 
-    function each(file) {
+    /**
+     * 合并文件
+     * @param file
+     */
+    function combine(file) {
       if (!file) return;
 
       if (pathArr.indexOf(file.path) < 0) {
         pathArr.push(file.path);
-        contents.push(file.caculateContents);
-        size += file.caculateContents.length;
+
+        if(file.caculateContents){
+          cont = file.caculateContents
+        }else {
+          if(fs.existsSync(file.path) && fs.lstatSync(filepath).isFile()){
+            cont = fs.readFileSync(file.path);
+          }else {
+            return;
+          }
+        }
+
+        contents.push(cont);
+
+        size += cont.length;
       }
 
       if (file.children) {
+        // 遍历依赖文件并且合并
         file.children.forEach(function(fc) {
-          each(denps[fc])
+          combine(denps[fc] || { path: fc });
         });
       }
     }
