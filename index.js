@@ -5,9 +5,19 @@ var path = require("path");
 
 module.exports = function(options) {
   var denps = {};
+
+  options = options || {};
+
+  var type = Object.prototype.toString.call(options);
+
   var alias = options.alias || {};
   var filter = options.filter;
   var base = options.base || "";
+
+  // 兼容旧版本
+  if(type === "[object RegExp]"){
+    filter = options;
+  }
 
   /**
    * 收集js文件信息
