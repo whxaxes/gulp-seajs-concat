@@ -85,7 +85,6 @@ module.exports = function(options) {
 
     // 遍历需要合并的文件并且合并
     for (var filepath in denps) {
-      console.log(filepath)
       if (filter && (filter instanceof RegExp) && !filepath.match(filter)) continue;
 
       contents.length = pathArr.length = size = 0;
