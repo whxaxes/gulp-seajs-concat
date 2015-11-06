@@ -28,12 +28,12 @@ module.exports = function(options) {
     }
 
     var filepath = url.format(file.path);
-    denps[filepath] = file;
+    denps[filepath.toLowerCase()] = file;
 
     // 复制文件数据
     file.caculateContents = new Buffer(file.contents.length);
     file.contents.copy(file.caculateContents);
-    
+
     file.children = [];
 
     var fileString = file.contents.toString();
@@ -61,7 +61,7 @@ module.exports = function(options) {
           jsurl = path.resolve(path.dirname(filepath), jsurl);
         }
 
-        file.children.push(jsurl);
+        file.children.push(jsurl.replace(/\/|\\/g, "/").toLowerCase());
       });
 
     }
@@ -82,6 +82,7 @@ module.exports = function(options) {
 
     // 遍历需要合并的文件并且合并
     for (var filepath in denps) {
+      console.log(filepath)
       if (filter && (filter instanceof RegExp) && !filepath.match(filter)) continue;
 
       contents.length = pathArr.length = size = 0;
