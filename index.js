@@ -28,6 +28,8 @@ module.exports = function(options) {
     }
 
     var filepath = url.format(file.path);
+
+    // 为了兼容windows下的盘符大小写问题，统一转为小写
     denps[filepath.toLowerCase()] = file;
 
     // 复制文件数据
@@ -61,6 +63,7 @@ module.exports = function(options) {
           jsurl = path.resolve(path.dirname(filepath), jsurl);
         }
 
+				// 此处将路径转换为gulp的路径格式，即统一用/
         file.children.push(jsurl.replace(/\/|\\/g, "/").toLowerCase());
       });
 
