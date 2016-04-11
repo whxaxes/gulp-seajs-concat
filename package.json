@@ -4,11 +4,17 @@
   "description": "seajs concat",
   "main": "index.js",
   "dependencies": {
-    "through2": "^0.6.3"
+    "through2": "^2.0.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "gulp-seajs-transport": "^0.3.1",
+    "istanbul": "^0.4.3",
+    "mocha": "^2.4.5",
+    "vinyl-fs": "^2.4.3"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "make test",
+    "cover": "make cover"
   },
   "repository": {
     "type": "git",
@@ -19,7 +25,7 @@
     "concat"
   ],
   "author": "wanghx",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/whxaxes/gulp-seajs-concat/issues"
   },

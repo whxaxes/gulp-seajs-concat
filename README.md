@@ -1,11 +1,15 @@
 # gulp-seajs-concat
 
-自用插件，用于合并编译过的seajs模块
+[![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Coverage Status][coveralls-image]][coveralls-url]
+
+gulp插件，用于合并编译过的seajs模块
+
 
 ## Install 
 ```
 npm install gulp-seajs-concat
 ```
+
 
 ## Usage:
 demo:
@@ -30,6 +34,7 @@ gulp.task('default' , function(){
 })
 ```
 
+
 ## API
 ### alias
 别名，对应seajs.config的alias，如果在seajs的config里加了alias，最好在concat也配置上该alias，concat才能找到响应文件
@@ -39,3 +44,21 @@ gulp.task('default' , function(){
 
 ### filter
 过滤正则，过滤输出文件/目录
+
+
+## Running Test
+```
+make test
+```
+
+
+## License
+MIT
+
+
+[npm-url]: https://npmjs.org/package/gulp-seajs-concat
+[npm-image]: http://img.shields.io/npm/v/gulp-seajs-concat.svg
+[travis-url]: https://travis-ci.org/whxaxes/gulp-seajs-concat
+[travis-image]: http://img.shields.io/travis/whxaxes/gulp-seajs-concat.svg
+[coveralls-url]: https://coveralls.io/r/whxaxes/gulp-seajs-concat
+[coveralls-image]: https://coveralls.io/repos/github/whxaxes/gulp-seajs-concat/badge.svg

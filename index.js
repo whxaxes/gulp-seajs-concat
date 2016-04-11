@@ -14,11 +14,6 @@ module.exports = function(options) {
   var filter = options.filter;
   var base = options.base || "";
 
-  // 兼容旧版本
-  if(type === "[object RegExp]"){
-    filter = options;
-  }
-
   /**
    * 收集js文件信息
    */
@@ -27,10 +22,10 @@ module.exports = function(options) {
       return cb();
     }
 
-    var filepath = url.format(file.path);
+    var filePath = url.format(file.path);
 
     // 为了兼容windows下的盘符大小写问题，统一转为小写
-    denps[filepath.toLowerCase()] = file;
+    denps[filePath.toLowerCase()] = file;
 
     // 复制文件数据
     file.caculateContents = new Buffer(file.contents.length);
@@ -44,26 +39,27 @@ module.exports = function(options) {
     if (/(\[.*?\])/.test(fileString)) {
       var arr = RegExp.$1.match(/".*?"/g) || [];
 
-      arr.forEach(function(item, i){
+      arr.forEach(function(item, i) {
         var jsurl = item.replace(/"/g, '');
 
         // 如果有别名，则查询别名
-        if(alias){
+        if (alias) {
           jsurl = alias[jsurl] || jsurl;
         }
 
         // 自动补全后缀
-        jsurl = jsurl.indexOf(".js") >= 0 ? jsurl : jsurl + ".js";
+        jsurl += path.extname(jsurl) === '.js'
+          ? ''
+          : '.js';
 
         // 如果有基本目录，则与基本目录结合
         if (base && jsurl.charAt(0) !== ".") {
-          jsurl = base + ((base.charAt(base.length) === "/") ? "" : "/") + jsurl;
-          jsurl = path.resolve('', jsurl);
+          jsurl = path.resolve('', path.join(base, jsurl));
         } else {
-          jsurl = path.resolve(path.dirname(filepath), jsurl);
+          jsurl = path.resolve(path.dirname(filePath), jsurl);
         }
 
-				// 此处将路径转换为gulp的路径格式，即统一用/
+        // 此处将路径转换为gulp的路径格式，即统一用/
         file.children.push(jsurl.replace(/\/|\\/g, "/").toLowerCase());
       });
 
@@ -78,23 +74,25 @@ module.exports = function(options) {
   var _flush = function(cb) {
     var contents = [],
       pathArr = [],
-      file = null,
-      size = 0;
+      size = 0,
+      self = this;
 
     var cont;
 
     // 遍历需要合并的文件并且合并
-    for (var filepath in denps) {
-      if (filter && (filter instanceof RegExp) && !filepath.match(filter)) continue;
+    Object.keys(denps).forEach(function(filePath){
+      if (filter && (filter instanceof RegExp) && !filePath.match(filter)) return;
+
+      var file = denps[filePath];
 
       contents.length = pathArr.length = size = 0;
 
-      combine(file = denps[filepath]);
+      combine(file);
 
       file.contents = Buffer.concat(contents, size);
 
-      this.push(file);
-    }
+      self.push(file);
+    });
 
     /**
      * 合并文件
@@ -106,14 +104,10 @@ module.exports = function(options) {
       if (pathArr.indexOf(file.path) < 0) {
         pathArr.push(file.path);
 
-        if(file.caculateContents){
+        if (file.caculateContents) {
           cont = file.caculateContents
-        }else {
-          //if(fs.existsSync(file.path) && fs.lstatSync(filepath).isFile()){
-          //  cont = fs.readFileSync(file.path);
-          //}else {
-            return;
-          //}
+        } else {
+          return;
         }
 
         contents.push(cont);
@@ -124,7 +118,7 @@ module.exports = function(options) {
       if (file.children) {
         // 遍历依赖文件并且合并
         file.children.forEach(function(fc) {
-          combine(denps[fc] || { path: fc });
+          combine(denps[fc] || {path: fc});
         });
       }
     }
