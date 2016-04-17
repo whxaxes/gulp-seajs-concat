@@ -13,7 +13,7 @@ npm install gulp-seajs-concat
 
 ## Usage:
 demo:
-```     
+```javascript
 var gulp = require("gulp");
 var transport = require("gulp-seajs-transport");
 var uglify = require("gulp-uglify");
